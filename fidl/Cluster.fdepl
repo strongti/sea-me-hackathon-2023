@@ -7,12 +7,14 @@ define org.genivi.commonapi.someip.deployment for interface commonapi.Cluster {
         method updateSpeed {
                 SomeIpMethodID = 123
         }
-
         method updateRPM {
                 SomeIpMethodID = 124
         }
 	method clickButtons {
 		SomeIpMethodID = 125
+	}
+	method sendImage {
+		SomeIpMethodID = 126
 	}
 }
 

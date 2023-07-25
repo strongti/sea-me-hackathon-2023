@@ -131,6 +131,26 @@ public:
      * It will provide the same value for CallStatus as will be handed to the callback.
      */
     virtual std::future<CommonAPI::CallStatus> clickButtonsAsync(const std::string &_command, ClickButtonsAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr);
+    /**
+     * Calls sendImage with synchronous semantics.
+     *
+     * All const parameters are input parameters to this method.
+     * The CallStatus will be filled when the method returns and indicate either
+     * "SUCCESS" or which type of error has occurred. In case of an error, ONLY the CallStatus
+     * will be set.
+     */
+    virtual void sendImage(std::vector< uint8_t > _imageData, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info = nullptr);
+    /**
+     * Calls sendImage with asynchronous semantics.
+     *
+     * The provided callback will be called when the reply to this call arrives or
+     * an error occurs during the call. The CallStatus will indicate either "SUCCESS"
+     * or which type of error has occurred. In case of any error, ONLY the CallStatus
+     * will have a defined value.
+     * The std::future returned by this method will be fulfilled at arrival of the reply.
+     * It will provide the same value for CallStatus as will be handed to the callback.
+     */
+    virtual std::future<CommonAPI::CallStatus> sendImageAsync(const std::vector< uint8_t > &_imageData, SendImageAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr);
 
 
 
@@ -180,6 +200,15 @@ void ClusterProxy<_AttributeExtensions...>::clickButtons(std::string _command, C
 template <typename ... _AttributeExtensions>
 std::future<CommonAPI::CallStatus> ClusterProxy<_AttributeExtensions...>::clickButtonsAsync(const std::string &_command, ClickButtonsAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
     return delegate_->clickButtonsAsync(_command, _callback, _info);
+}
+template <typename ... _AttributeExtensions>
+void ClusterProxy<_AttributeExtensions...>::sendImage(std::vector< uint8_t > _imageData, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info) {
+    delegate_->sendImage(_imageData, _internalCallStatus, _info);
+}
+
+template <typename ... _AttributeExtensions>
+std::future<CommonAPI::CallStatus> ClusterProxy<_AttributeExtensions...>::sendImageAsync(const std::vector< uint8_t > &_imageData, SendImageAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
+    return delegate_->sendImageAsync(_imageData, _callback, _info);
 }
 
 template <typename ... _AttributeExtensions>

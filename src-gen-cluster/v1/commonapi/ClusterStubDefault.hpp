@@ -78,6 +78,11 @@ public:
         int32_t status = 0;
         _reply(status);
     }
+    COMMONAPI_EXPORT virtual void sendImage(const std::shared_ptr<CommonAPI::ClientId> _client, std::vector< uint8_t > _imageData, sendImageReply_t _reply) {
+        (void)_client;
+        (void)_imageData;
+        _reply();
+    }
 
 
 protected:

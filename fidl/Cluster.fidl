@@ -26,4 +26,9 @@ interface Cluster {
       Int32 status
     }
   }
+  method sendImage {
+    in {
+      UInt8[] imageData
+    }
+  }
 }

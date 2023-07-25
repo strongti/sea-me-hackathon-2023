@@ -40,6 +40,7 @@ public:
     typedef std::function<void(const CommonAPI::CallStatus&, const int32_t&)> UpdateSpeedAsyncCallback;
     typedef std::function<void(const CommonAPI::CallStatus&, const int32_t&)> UpdateRPMAsyncCallback;
     typedef std::function<void(const CommonAPI::CallStatus&, const int32_t&)> ClickButtonsAsyncCallback;
+    typedef std::function<void(const CommonAPI::CallStatus&)> SendImageAsyncCallback;
 
     virtual void updateSpeed(int32_t _speed, CommonAPI::CallStatus &_internalCallStatus, int32_t &_status, const CommonAPI::CallInfo *_info = nullptr) = 0;
     virtual std::future<CommonAPI::CallStatus> updateSpeedAsync(const int32_t &_speed, UpdateSpeedAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
@@ -47,6 +48,8 @@ public:
     virtual std::future<CommonAPI::CallStatus> updateRPMAsync(const int32_t &_rpm, UpdateRPMAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
     virtual void clickButtons(std::string _command, CommonAPI::CallStatus &_internalCallStatus, int32_t &_status, const CommonAPI::CallInfo *_info = nullptr) = 0;
     virtual std::future<CommonAPI::CallStatus> clickButtonsAsync(const std::string &_command, ClickButtonsAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
+    virtual void sendImage(std::vector< uint8_t > _imageData, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info = nullptr) = 0;
+    virtual std::future<CommonAPI::CallStatus> sendImageAsync(const std::vector< uint8_t > &_imageData, SendImageAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
 
     virtual std::future<void> getCompletionFuture() = 0;
 };

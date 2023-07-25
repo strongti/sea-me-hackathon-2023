@@ -91,11 +91,12 @@ public:
     typedef std::function<void (int32_t _status)> updateSpeedReply_t;
     typedef std::function<void (int32_t _status)> updateRPMReply_t;
     typedef std::function<void (int32_t _status)> clickButtonsReply_t;
+    typedef std::function<void ()> sendImageReply_t;
 
     virtual ~ClusterStub() {}
     void lockInterfaceVersionAttribute(bool _lockAccess) { static_cast<void>(_lockAccess); }
     bool hasElement(const uint32_t _id) const {
-        return (_id < 3);
+        return (_id < 4);
     }
     virtual const CommonAPI::Version& getInterfaceVersion(std::shared_ptr<CommonAPI::ClientId> _client) = 0;
 
@@ -105,6 +106,8 @@ public:
     virtual void updateRPM(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _rpm, updateRPMReply_t _reply) = 0;
     /// This is the method that will be called on remote calls on the method clickButtons.
     virtual void clickButtons(const std::shared_ptr<CommonAPI::ClientId> _client, std::string _command, clickButtonsReply_t _reply) = 0;
+    /// This is the method that will be called on remote calls on the method sendImage.
+    virtual void sendImage(const std::shared_ptr<CommonAPI::ClientId> _client, std::vector< uint8_t > _imageData, sendImageReply_t _reply) = 0;
 
 
     using CommonAPI::Stub<ClusterStubAdapter, ClusterStubRemoteEvent>::initStubAdapter;

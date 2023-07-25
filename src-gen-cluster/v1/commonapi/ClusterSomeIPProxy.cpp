@@ -230,6 +230,52 @@ std::future<CommonAPI::CallStatus> ClusterSomeIPProxy::clickButtonsAsync(const s
         std::make_tuple(deploy_status));
 }
 
+void ClusterSomeIPProxy::sendImage(std::vector< uint8_t > _imageData, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info) {
+    CommonAPI::Deployable< std::vector< uint8_t >, CommonAPI::SomeIP::ArrayDeployment< CommonAPI::SomeIP::IntegerDeployment<uint8_t> >> deploy_imageData(_imageData, static_cast< CommonAPI::SomeIP::ArrayDeployment< CommonAPI::SomeIP::IntegerDeployment<uint8_t> >* >(nullptr));
+    CommonAPI::SomeIP::ProxyHelper<
+        CommonAPI::SomeIP::SerializableArguments<
+            CommonAPI::Deployable<
+                std::vector< uint8_t >,
+                CommonAPI::SomeIP::ArrayDeployment< CommonAPI::SomeIP::IntegerDeployment<uint8_t> >
+            >
+        >,
+        CommonAPI::SomeIP::SerializableArguments<
+        >
+    >::callMethodWithReply(
+        *this,
+        CommonAPI::SomeIP::method_id_t(0x7e),
+        false,
+        false,
+        (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
+        deploy_imageData,
+        _internalCallStatus);
+}
+
+std::future<CommonAPI::CallStatus> ClusterSomeIPProxy::sendImageAsync(const std::vector< uint8_t > &_imageData, SendImageAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
+    CommonAPI::Deployable< std::vector< uint8_t >, CommonAPI::SomeIP::ArrayDeployment< CommonAPI::SomeIP::IntegerDeployment<uint8_t> >> deploy_imageData(_imageData, static_cast< CommonAPI::SomeIP::ArrayDeployment< CommonAPI::SomeIP::IntegerDeployment<uint8_t> >* >(nullptr));
+    return CommonAPI::SomeIP::ProxyHelper<
+        CommonAPI::SomeIP::SerializableArguments<
+            CommonAPI::Deployable<
+                std::vector< uint8_t >,
+                CommonAPI::SomeIP::ArrayDeployment< CommonAPI::SomeIP::IntegerDeployment<uint8_t> >
+            >
+        >,
+        CommonAPI::SomeIP::SerializableArguments<
+        >
+    >::callMethodAsync(
+        *this,
+        CommonAPI::SomeIP::method_id_t(0x7e),
+        false,
+        false,
+        (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
+        deploy_imageData,
+        [_callback] (CommonAPI::CallStatus _internalCallStatus) {
+            if (_callback)
+                _callback(_internalCallStatus);
+        },
+        std::make_tuple());
+}
+
 void ClusterSomeIPProxy::getOwnVersion(uint16_t& ownVersionMajor, uint16_t& ownVersionMinor) const {
     ownVersionMajor = 1;
     ownVersionMinor = 0;
