@@ -71,3 +71,4 @@ HEADERS += \
     ButtonsReceiver.h \
     RPMReceiver.h \
     SpeedReceiver.h
+

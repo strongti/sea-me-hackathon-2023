@@ -31,3 +31,9 @@ void ClusterStubImpl::clickButtons(const std::shared_ptr<CommonAPI::ClientId> _c
 
     _reply(0);
 }
+
+void ClusterStubImpl::sendImage(const std::shared_ptr<CommonAPI::ClientId> _client, std::vector< uint8_t > _imageData, sendImageReply_t _reply) {
+
+    emit signalImage(_imageData);
+
+}
