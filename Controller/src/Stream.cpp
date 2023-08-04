@@ -20,8 +20,12 @@ void Stream::initCamera()
             return;
         }
     }
+    cap.set(cv::CAP_PROP_FRAME_WIDTH, 640);
+    cap.set(cv::CAP_PROP_FRAME_HEIGHT, 480);
+    cap.set(cv::CAP_PROP_FPS, 30);
 
     cv::namedWindow("Webcam", cv::WINDOW_AUTOSIZE); // 창 생성
+    cv::resizeWindow("Webcam", 640, 480);
 
     while (true) {
         cv::Mat frame;
@@ -34,7 +38,7 @@ void Stream::initCamera()
 
         cv::imshow("Webcam", frame); // 프레임 표시
 
-        char key = (char)cv::waitKey(30); // 30ms 동안 키 입력 대기
+        char key = (char)cv::waitKey(34); // 30ms 동안 키 입력 대기
         if (key == 27) { // 'ESC' 키를 누르면 루프 종료
             break;
         }
